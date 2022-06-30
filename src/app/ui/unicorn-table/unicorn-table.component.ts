@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { IUnicornTableColumn } from '../models';
@@ -13,6 +13,8 @@ export class UnicornTableComponent implements OnInit {
   dataSource: MatTableDataSource<IFhirPatient | IFhirPractitioner> = new MatTableDataSource([]);
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  @Output() navigateTo = new EventEmitter<string>();
+
   @Input() columns: Set<IUnicornTableColumn> = new Set<IUnicornTableColumn>();
   @Input() totalLength = 0;
   @Input() isLoading = false;
@@ -24,5 +26,9 @@ export class UnicornTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  navigate(row) {
+    this.navigateTo.emit(row);
   }
 }

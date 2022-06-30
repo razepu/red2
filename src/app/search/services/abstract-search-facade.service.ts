@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 import { FhirSearchFn, IFhirPatient, IFhirPractitioner, IFhirSearchResponse } from '@red-probeaufgabe/types';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export abstract class AbstractSearchFacadeService {
   abstract search(type: FhirSearchFn, query: string): Observable<IFhirSearchResponse<IFhirPatient | IFhirPractitioner>>;
 
